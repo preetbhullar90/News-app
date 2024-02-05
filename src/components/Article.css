@@ -1,0 +1,32 @@
+.article-container{
+    padding: 10px 20px;
+    width: 50%;
+    border-radius: 20px;
+    color: #fff;
+    margin-left: 20rem;
+    margin-top: 5rem;
+}
+.article-subcontainer{
+background-color: rgb(49, 48, 48);
+    border-radius: 20px;
+    
+   width: 80%;
+   padding:10px 10px 10px 20px;
+}
+.images>img{
+    width: 500px;
+}
+.votes-comments{
+    display: flex;
+    
+}
+
+.votes,.comments{
+width: 20%;
+}
+.border{
+    border-bottom: 2px solid rgb(86, 83, 83);
+    width: 85%;
+    padding-top: 10px;
+ 
+}

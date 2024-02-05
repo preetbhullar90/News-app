@@ -1,0 +1,17 @@
+.nav-container{
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.nav-subcontainer{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.nav-subcontainer>a{
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 0px;
+}
+
