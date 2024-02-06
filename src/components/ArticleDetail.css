@@ -28,6 +28,21 @@ background-color: rgb(49, 48, 48);
 .body{
     padding: 10px;
 }
+.detail-vote{
+    padding-bottom: 10px;
+}
+
+.comment {
+    margin: 30px 0px;
+    padding: 10px;
+    background-color: rgb(35, 32, 32);
+    width: 130px;
+    border-radius: 20px;
+    color: #fff;
+}
+.comment:hover{
+    color: #989191;
+}
 
 @media screen and (max-width: 1024px) {
     .article-container {
