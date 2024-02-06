@@ -1,30 +1,25 @@
-import { useState } from 'react'
-import { Header } from './components/Header'
-import './App.css'
-import { Home } from './components/Home'
-import { Nav } from './components/Nav'
-import { Route, Routes } from 'react-router-dom'
+import { useState } from "react";
+import { Header } from "./components/Header";
+import "./App.css";
+import { Home } from "./components/Home";
+import { Navigation } from "./components/Navigation";
+import { Route, Routes } from "react-router-dom";
+import { ArticleDetail } from "./components/ArticleDetail";
 
 function App() {
-  
-
   return (
     <>
-      <div className="header">
+      <Navigation />
+      <div>
         <Header />
-      </div>
 
-      <div className="App">
-        <div className="nav">
-          <Nav />
-        </div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/article/:article_id" element={<ArticleDetail />} />
         </Routes>
-     
       </div>
     </>
   );
 }
 
-export default App
+export default App;

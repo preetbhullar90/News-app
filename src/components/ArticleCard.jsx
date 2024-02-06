@@ -3,11 +3,15 @@ import './Article.css';
 
 
 export const ArticleCard = ({ article }) => {
-    console.log(article.title)
+    
   return (
     <div className="article-container">
       <div className="article-subcontainer">
-        <p>{article.author}</p>
+        <div className='author-date'>
+
+        <p>Author: {article.author}</p>
+        <p>Created At: {article.created_at.slice(0, 10)}</p>
+        </div>
         <h2>{article.title}</h2>
 
         <div className="images">
@@ -18,8 +22,8 @@ export const ArticleCard = ({ article }) => {
           <p className="comments">{article.comment_count}</p>
           <p className="share">Share</p>
         </div>
+        <div className="borders"></div>
       </div>
-      <div className='border'></div>
-      </div>
+    </div>
   );
 }
