@@ -9,8 +9,8 @@ export const ArticleCard = ({ article }) => {
       <div className="article-subcontainer">
         <div className='author-date'>
 
-        <p>Author: {article.author}</p>
-        <p>Created At: {article.created_at.slice(0, 10)}</p>
+        <p>{article.author}</p>
+        <p>{article.created_at.slice(0, 10)}</p>
         </div>
         <h2>{article.title}</h2>
 

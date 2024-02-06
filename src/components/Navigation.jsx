@@ -58,9 +58,9 @@ export const Navigation = () => {
               Articles
             </Link>
             <Link className="navbar-item" to="/">
-              Comments
+              Detail Page
             </Link>
-
+            
             <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">More</a>
               <div

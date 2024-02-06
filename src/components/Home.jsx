@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArticleCard } from "./ArticleCard";
 import { Link } from "react-router-dom";
+import { fetchArticle } from "../Utils/api";
 import "./Home.css";
 
 export const Home = () => {
@@ -8,12 +9,9 @@ export const Home = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://news-website-0p9e.onrender.com/api/articles`)
+    fetchArticle()
       .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        setArticles(response.article);
+        setArticles(response);
         setLoading(false);
       });
   }, []);
@@ -23,7 +21,7 @@ export const Home = () => {
     <div className="home-container">
       {articles.map((article) => (
         <ul key={article.article_id}>
-          <Link to={`/article/${article.article_id}`}>
+          <Link to={`/articles/${article.article_id}`}>
             <ArticleCard key={article.article_id} article={article} />
           </Link>
         </ul>
