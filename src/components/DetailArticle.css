@@ -5,6 +5,16 @@
     justify-content: center;
 
 }
+.comment-button{
+color: #fff;
+    display: flex;
+    justify-content: center;
+   
+}
+
+
+
+
 .comment-subcontainer{
     max-width: 550px;
     
