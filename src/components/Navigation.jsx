@@ -5,7 +5,8 @@ import "bulma/css/bulma.min.css";
 import { Header } from "./Header";
 
 export const Navigation = () => {
-  const handleToggle = () => {
+  const handleToggle = (event) => {
+    event.preventDefault();
     const menu = document.getElementById("navbarBasicExample");
     menu.classList.toggle("is-active");
   };
@@ -28,7 +29,7 @@ export const Navigation = () => {
           <Link to="/" className="navbar-item">
             <Header />
           </Link>
-          <a
+          <Link
             role="button"
             className="navbar-burger"
             aria-label="menu"
@@ -39,7 +40,7 @@ export const Navigation = () => {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
-          </a>
+          </Link>
         </div>
 
         <div
@@ -62,18 +63,18 @@ export const Navigation = () => {
             </Link>
             
             <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">More</a>
+              <Link className="navbar-link">More</Link>
               <div
                 className="navbar-dropdown"
                 style={{
                   backgroundColor: "rgb(35, 35, 35)",
                 }}
               >
-                <a className="navbar-item">About</a>
-                <a className="navbar-item">Jobs</a>
-                <a className="navbar-item">Contact</a>
+                <Link className="navbar-item">About</Link>
+                <Link className="navbar-item">Jobs</Link>
+                <Link className="navbar-item">Contact</Link>
                 <hr className="navbar-divider" />
-                <a className="navbar-item">Report an issue</a>
+                <Link className="navbar-item">Report an issue</Link>
               </div>
             </div>
           </div>
