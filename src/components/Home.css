@@ -2,12 +2,7 @@
 .home-container a{
     text-decoration: none;
 }
-.home-container{
-background-color: rgb(49, 48, 48);
-    
-   
-    
-}
+
 
 
 @media screen and (max-width: 1024px) {
