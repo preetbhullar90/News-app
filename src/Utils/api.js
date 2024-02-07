@@ -41,3 +41,21 @@ export const fetchVotesUpdate = (inc_votes, article_id) => {
     })
     .then((data) => data.comment);
 };
+
+
+
+
+export const postComment  = (article_id, username, body) => {
+  return fetch(
+    `https://news-website-0p9e.onrender.com/api/articles/${article_id}/comments`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ article_id,username, body}),
+    }
+  ).then((response) => {
+   
+  });
+};

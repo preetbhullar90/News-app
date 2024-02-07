@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { fetchArticle } from "../Utils/api";
 import "./Home.css";
 
+
 export const Home = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState(null);
@@ -25,26 +26,45 @@ export const Home = () => {
   return (
     <>
       {loading ? (
-   <p style={{fontSize:'20px', color: "red",position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}}>Loading...</p>
+        <p
+          style={{
+            fontSize: "20px",
+            color: "red",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}
+        >
+          Loading...
+        </p>
+      ) : error ? (
+        <p
+          style={{
+            fontSize: "20px",
+            color: "red",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}
+        >
+          {error}
+        </p>
+      ) : (
+        <div className="home-container">
+          {articles.map((article) => (
+            <ul key={article.article_id}>
+              <Link
+                to={`/articles/${article.article_id}/comments`}
+                className="comment"
+              >
+                <ArticleCard key={article.article_id} article={article} />
+              </Link>
 
-      ):error?(
-          <p style={{ fontSize: '20px', color: "red", position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }}>{ error}</p>
-        ) : (
-            
-    <div className="home-container">
-      {articles.map((article) => (
-        <ul key={article.article_id}>
-          <Link
-            to={`/articles/${article.article_id}/comments`}
-            className="comment"
-          >
-            <ArticleCard key={article.article_id} article={article} />
-           
-          </Link>
-          
-        </ul>
-      ))}
-    </div>
+            </ul>
+          ))}
+        </div>
       )}
     </>
   );

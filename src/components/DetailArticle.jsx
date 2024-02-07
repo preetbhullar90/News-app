@@ -8,6 +8,7 @@ import {
 import { FaArrowAltCircleUp, FaArrowAltCircleDown } from "react-icons/fa";
 
 import "./DetailArticle.css";
+import { AddComment } from "./AddComment";
 
 export const DetailArticle = () => {
   const [comments, setComments] = useState([]);
@@ -88,44 +89,64 @@ export const DetailArticle = () => {
       ) : (
         <div>
           {article && (
-            <div className="article-container">
-              <div className="detail-container">
-                <div className="detail-subcontainer">
-                  <div className="author-date">
-                    <p>Author: {article.author}</p>
-                    <p>created At: {article.created_at.slice(0, 10)}</p>
-                  </div>
-                  <h2>{article.title}</h2>
-                  <div className="images">
-                    <img src={article.article_img_url} alt="" />
-                  </div>
-                  <p className="body">{article.body}</p>
-                  <div className="vote-section">
-                    <p onClick={() => handleVote(1)}>
-                      <FaArrowAltCircleUp
-                        style={{
-                          fontSize: "20px",
-                          backgroundColor: "orange",
-                          borderRadius: "21px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </p>
-                    <p className="vote-count">{article.votes}</p>
-                    <p onClick={() => handleVote(-1)}>
-                      <FaArrowAltCircleDown
-                        style={{
-                          fontSize: "20px",
-                          backgroundColor: "orange",
-                          borderRadius: "21px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </p>
+            <>
+              <div className="article-container">
+                <div className="detail-container">
+                  <div className="detail-subcontainer">
+                    <div className="author-date">
+                      <p>{article.author}</p>
+                      <p>{article.created_at.slice(0, 10)}</p>
+                    </div>
+                    <h2>{article.title}</h2>
+                    <div className="images">
+                      <img src={article.article_img_url} alt="" />
+                    </div>
+                    <p className="body">{article.body}</p>
+                    <div className="vote-section">
+                      <p onClick={() => handleVote(1)}>
+                        <FaArrowAltCircleUp
+                          style={{
+                            fontSize: "20px",
+                            backgroundColor: "orange",
+                            borderRadius: "21px",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </p>
+                      <p className="vote-count">{article.votes}</p>
+                      {article.votes < 1 ? (
+                        <p onClick={() => handleVote(0)}>
+                          <FaArrowAltCircleDown
+                            style={{
+                              fontSize: "20px",
+                              backgroundColor: "orange",
+                              borderRadius: "21px",
+                              cursor: "not-allowed",
+                            }}
+                          />
+                        </p>
+                      ) : (
+                        <p onClick={() => handleVote(-1)}>
+                          <FaArrowAltCircleDown
+                            style={{
+                              fontSize: "20px",
+                              backgroundColor: "orange",
+                              borderRadius: "21px",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+              <div >
+                
+                  <AddComment article_id={article.article_id} />
+               
+              </div>
+            </>
           )}
           <div className="comment-container">
             <div className="comment-subcontainer">
