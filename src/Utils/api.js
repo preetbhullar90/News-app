@@ -59,3 +59,29 @@ export const postComment  = (article_id, username, body) => {
    
   });
 };
+
+
+export const fetchUsers = () => {
+  return fetch(`https://news-website-0p9e.onrender.com/api/users`).then((response) => {
+    return response.json()
+  }).then((data) => data.user
+  )
+}
+
+
+
+export const fetchDeleteComment = (comment_id) => {
+  return fetch(
+    `https://news-website-0p9e.onrender.com/api/comments/${comment_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  )
+    .then((response) => {
+    
+    })
+    
+};
