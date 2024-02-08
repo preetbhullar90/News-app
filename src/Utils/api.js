@@ -85,3 +85,13 @@ export const fetchDeleteComment = (comment_id) => {
     })
     
 };
+
+
+
+export const fetchTopics = (topic) => {
+  return fetch(`https://news-website-0p9e.onrender.com/api/articles?topic=${topic}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => data.article);
+};

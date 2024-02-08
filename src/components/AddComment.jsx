@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddComment.css';
 import { postComment } from '../Utils/api';
 import { FaPlusCircle } from "react-icons/fa";
@@ -8,7 +8,6 @@ import { FaMinusCircle } from "react-icons/fa";
 
 
 export const AddComment = ({article_id,currentUser}) => {
-    console.log(currentUser,article_id)
     
 const [username, setAuthor] = useState("");
 const [body, setCommentText] = useState("");
@@ -16,7 +15,9 @@ const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
 const [success, setSuccess] = useState(false);
 const [expanded, setExpanded] = useState(false);
-
+const [rightUser,setRightUser]=useState(false)
+ 
+  
 const handleSubmit = (event) => {
   event.preventDefault();
   setLoading(true);
@@ -24,9 +25,14 @@ const handleSubmit = (event) => {
 
   postComment(article_id,username, body)
     .then(() => {
+      if (username !== currentUser) {
+        setRightUser(true)
+      } else {
         setCommentText("");
         setAuthor('')
-      setSuccess(true);
+        setSuccess(true);
+        setRightUser(false)
+      }
     })
     .catch((error) => {
       setError("Failed to post comment. Please try again.");
@@ -35,6 +41,8 @@ const handleSubmit = (event) => {
       setLoading(false);
     });
 };
+  
+ 
 
 
     
@@ -106,6 +114,22 @@ const handleSubmit = (event) => {
                       {error}
                     </p>
                   )}
+
+                  {rightUser ? (
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        color: "red",
+                        position: "absolute",
+                        top: "88%",
+                        left: "55%",
+                        transform: "translate(-50%,-50%)",
+                      }}
+                    >
+                      Username is not correct or Login
+                    </p>
+                  ) :
+                    <>
                   {success && (
                     <p
                       style={{
@@ -120,12 +144,14 @@ const handleSubmit = (event) => {
                       Comment posted successfully!
                     </p>
                   )}
+                    </>
+                  }
                 </div>
               </div>
             )}
           </>
         ) : (
-          <p style={{color:'red'}}>Please Login</p>
+          <p style={{ color: "red" }}>Please Login</p>
         )}
       </div>
     </div>

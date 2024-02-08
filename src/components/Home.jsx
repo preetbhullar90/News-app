@@ -16,7 +16,7 @@ export const Home = () => {
         setArticles(response);
         setLoading(false);
       }).catch((error) => {
-        setError(error.response.msg)
+        setError(error.msg)
         setLoading(false)
       })
   }, []);

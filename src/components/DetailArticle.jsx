@@ -19,6 +19,7 @@ export const DetailArticle = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deletingComment, setDeletingComment] = useState(false);
+   const [reloadPage, setReloadPage] = useState(false);
   const { currentUser } = useContext(UserContext);
 
   
@@ -27,11 +28,11 @@ export const DetailArticle = () => {
 
 
   const handleDeleteComment = (comment_id) => {
-  console.log(comment_id)
+  
     fetchDeleteComment(comment_id)
       .then(() => {
         setLoading(false);
-        window.location.reload()
+         setReloadPage(true); 
       })
       .catch((error) => {
         setError(error.response.msg);
@@ -47,7 +48,7 @@ export const DetailArticle = () => {
       .then((data) => {
         setVotes(data);
         setLoading(false);
-        window.location.reload();
+         setReloadPage(true); 
       })
       .catch((error) => {
         setError(error.response.msg);
@@ -60,9 +61,10 @@ export const DetailArticle = () => {
       .then((data) => {
         setComments(data);
         setLoading(false);
+       
       })
       .catch((error) => {
-        setError(error.response.msg);
+        setError(error.msg);
         setLoading(false);
       });
 
@@ -72,13 +74,15 @@ export const DetailArticle = () => {
         setLoading(false);
       })
       .catch((error) => {
-        setError(error.response.msg);
+        setError(error.msg);
         setLoading(false);
       });
-  }, [article_id]);
+     if (reloadPage) {
+       setReloadPage(false);
+     }
+  }, [article_id,reloadPage]);
 
-  if (loading) {
-  }
+  
 
   return (
     <>
@@ -101,8 +105,8 @@ export const DetailArticle = () => {
             fontSize: "20px",
             color: "red",
             position: "absolute",
-            top: "50%",
-            left: "50%",
+            top: "85%",
+            left: "55%",
             transform: "translate(-50%,-50%)",
           }}
         >
