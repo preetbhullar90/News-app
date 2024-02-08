@@ -7,6 +7,7 @@ import { DetailArticle } from "./components/DetailArticle";
 import { useEffect, useState } from "react";
 import  UserContext  from "./contexts/UserContext";
 import { Users } from "./components/Users";
+import { TopicArticles } from "./components/TopicArticles";
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
               element={<DetailArticle />}
             />
             <Route path="/users" element={<Users />} />
+            <Route
+              path="/topics/:topic"
+              element={<TopicArticles />}
+            />
           </Routes>
         </UserContext.Provider>
       </div>

@@ -70,10 +70,7 @@ export const Navigation = () => {
           }}
         >
           <div className="navbar-start">
-            <Link className="navbar-item" to="/">
-              Topics
-            </Link>
-
+            
             <Link className="navbar-item" to="/">
               Articles
             </Link>
@@ -82,18 +79,27 @@ export const Navigation = () => {
             </Link>
 
             <div className="navbar-item has-dropdown is-hoverable">
-              <Link className="navbar-link">More</Link>
+              <Link className="navbar-link">Topics</Link>
               <div
                 className="navbar-dropdown"
                 style={{
                   backgroundColor: "rgb(35, 35, 35)",
                 }}
               >
-                <Link className="navbar-item">About</Link>
-                <Link className="navbar-item">Jobs</Link>
-                <Link className="navbar-item">Contact</Link>
+                <Link to="/" className="navbar-item">
+                  All
+                </Link>
+                <Link to="/topics/coding" className="navbar-item">
+                  Coding
+                </Link>
+                <Link to="/topics/football" className="navbar-item">
+                  Football
+                </Link>
+                <Link to="/topics/cooking" className="navbar-item">
+                  Cooking
+                </Link>
                 <hr className="navbar-divider" />
-                <Link className="navbar-item">Report an issue</Link>
+               
               </div>
             </div>
           </div>
@@ -103,8 +109,11 @@ export const Navigation = () => {
               <div className="buttons">
                 {auth ? (
                   <>
-                    <div >
-                      <p className="user-name navbar-item" style={{color:'#fff'}}>
+                    <div>
+                      <p
+                        className="user-name navbar-item"
+                        style={{ color: "#fff" }}
+                      >
                         <img src={currentUser.avatar_url} alt="" />
                         {currentUser.username}
                       </p>
