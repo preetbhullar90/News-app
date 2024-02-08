@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   fetchArticleById,
   fetchComments,
+  fetchDeleteComment,
   fetchVotesUpdate,
 } from "../Utils/api";
 import { FaArrowAltCircleUp, FaArrowAltCircleDown } from "react-icons/fa";
 
 import "./DetailArticle.css";
 import { AddComment } from "./AddComment";
+import UserContext from "../contexts/UserContext";
 
 export const DetailArticle = () => {
   const [comments, setComments] = useState([]);
@@ -16,9 +18,29 @@ export const DetailArticle = () => {
   const [votes, setVotes] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deletingComment, setDeletingComment] = useState(false);
+  const { currentUser } = useContext(UserContext);
 
+  
   const { article_id } = useParams();
   const navigate = useNavigate();
+
+
+  const handleDeleteComment = (comment_id) => {
+  console.log(comment_id)
+    fetchDeleteComment(comment_id)
+      .then(() => {
+        setLoading(false);
+        window.location.reload()
+      })
+      .catch((error) => {
+        setError(error.response.msg);
+        setLoading(false);
+      });
+  
+};
+
+
 
   const handleVote = (inc_votes) => {
     fetchVotesUpdate(inc_votes, article_id)
@@ -141,10 +163,8 @@ export const DetailArticle = () => {
                   </div>
                 </div>
               </div>
-              <div >
-                
-                  <AddComment article_id={article.article_id} />
-               
+              <div>
+                <AddComment article_id={article.article_id} currentUser={currentUser.username} />
               </div>
             </>
           )}
@@ -155,7 +175,16 @@ export const DetailArticle = () => {
                 <ul className="padding-all" key={comment.comment_id}>
                   <p>{comment.author}</p>
                   <p>{comment.body}</p>
-                  <p className="vote">{comment.votes}</p>
+                  <div className="delete-button-and-vote">
+                    <p>{comment.votes}</p>
+                    {comment.author === currentUser.username && (
+                      <button
+                        onClick={() => handleDeleteComment(comment.comment_id)}
+                      >
+                        Delete Comment
+                      </button>
+                    )}
+                  </div>
                 </ul>
               ))}
             </div>

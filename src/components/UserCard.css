@@ -1,0 +1,62 @@
+.user-card img{
+width: 200px;
+height: 200px;
+margin-bottom: 20px;
+}
+.user-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.wrapper {
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.user-container {
+background-color: rgb(49, 48, 48);
+height: 100vh;
+    
+}
+.user-login-name{
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 10px;
+}
+.user-login-name button{
+    border-radius: 20px;
+    border: 0;
+    padding: 3px 10px;
+    font-size: 15px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr ;
+        }
+
+}
+
+@media screen and (max-width: 600px) {
+.wrapper {
+        display: grid;
+        grid-template-columns: 1fr ;
+    }
+        .user-container {
+          
+            height: auto;
+    
+        }
+
+}

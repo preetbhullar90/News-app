@@ -1,10 +1,29 @@
 import React from "react";
 import "./Nav.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 import { Header } from "./Header";
+import { useContext } from "react";
+import  UserContext  from "../contexts/UserContext";
 
 export const Navigation = () => {
+
+  const { currentUser } = useContext(UserContext)
+  const auth = localStorage.getItem('currentUser')
+  const navigate = useNavigate()
+ 
+
+  function logout() {
+    if (auth) {
+      localStorage.clear()
+      navigate('/users')
+  }
+  
+}
+
+
+
+
   const handleToggle = (event) => {
     event.preventDefault();
     const menu = document.getElementById("navbarBasicExample");
@@ -61,7 +80,7 @@ export const Navigation = () => {
             <Link className="navbar-item" to="/">
               Detail Page
             </Link>
-            
+
             <div className="navbar-item has-dropdown is-hoverable">
               <Link className="navbar-link">More</Link>
               <div
@@ -82,15 +101,35 @@ export const Navigation = () => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
+                {auth ? (
+                  <>
+                    <div >
+                      <p className="user-name navbar-item" style={{color:'#fff'}}>
+                        <img src={currentUser.avatar_url} alt="" />
+                        {currentUser.username}
+                      </p>
+                    </div>
+                    <Link
+                      onClick={logout}
+                      to="/users"
+                      className="button is-light login-button"
+                      style={{ backgroundColor: "orange", color: "#fff" }}
+                    >
+                      Logout
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    to="/users"
+                    className="button is-light login-button"
+                    style={{ backgroundColor: "orange", color: "#fff" }}
+                  >
+                    Login
+                  </Link>
+                )}
                 {/* <a className="button is-primary">
                   <strong>Sign up</strong>
                 </a> */}
-                <Link
-                  className="button is-light login-button"
-                  style={{ backgroundColor: "orange", color: "#fff" }}
-                >
-                  Log in
-                </Link>
               </div>
             </div>
           </div>

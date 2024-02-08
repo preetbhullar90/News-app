@@ -2,5 +2,13 @@
  a.navbar-item,a.navbar-link {
     color: #fff;
  }
+.user-name{
+ 
 
-
+  padding-right: 10px;
+}
+.user-name img{
+   width: 30px;
+   margin-right: 10px;
+   border-radius: 100%;
+}
