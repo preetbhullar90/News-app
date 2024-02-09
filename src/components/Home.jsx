@@ -95,13 +95,7 @@ export const Home = () => {
           style={{ textAlign: "center", paddingTop: "3rem" }}
           className="home-container"
         >
-          <div
-            style={{
-              position: "fixed",
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-            }}
+          <div className="dropdown-menus"
           >
             <div className="sort-by-subcontainer">
               <label style={{ color: "#fff" }} htmlFor="SortBy">
