@@ -10,7 +10,7 @@ export const UserCard = ({ user }) => {
     setCurrentUser(user);
     localStorage.setItem('currentUser', JSON.stringify(user));
   };
-    console.log(user)
+
   return (
     <div className="user-card">
       <div>

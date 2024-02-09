@@ -10,7 +10,7 @@ export const Users = () => {
 
     useEffect(() => {
         fetchUsers().then((data) => {
-            console.log(data)
+           
             setUsers(data)
         })
     },[])
