@@ -1,4 +1,4 @@
-export const fetchArticle = (sortBy,order) => {
+export const fetchArticle = (sortBy, order) => {
   let url = `https://news-website-0p9e.onrender.com/api/articles`;
   if (sortBy && order) {
     url = `${url}?sort_by=${sortBy}&order=${order}`;
@@ -7,17 +7,17 @@ export const fetchArticle = (sortBy,order) => {
     .then((response) => {
       return response.json();
     })
-    .then((data) => data.article);
+    .then((response) => {
+      return response;
+    });
 };
 
 export const fetchArticleById = (article_id) => {
   return fetch(
     `https://news-website-0p9e.onrender.com/api/articles/${article_id}`
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => data.article);
+  ).then((response) => {
+    return response.json();
+  });
 };
 
 export const fetchComments = (article_id) => {
@@ -27,7 +27,9 @@ export const fetchComments = (article_id) => {
     .then((response) => {
       return response.json();
     })
-    .then((data) => data.comment);
+    .then((response) => {
+      return response;
+    });
 };
 
 export const fetchVotesUpdate = (inc_votes, article_id) => {
@@ -43,13 +45,12 @@ export const fetchVotesUpdate = (inc_votes, article_id) => {
     .then((response) => {
       return response.json();
     })
-    .then((data) => data.comment);
+    .then((response) => {
+      return response.comment;
+    });
 };
 
-
-
-
-export const postComment  = (article_id, username, body) => {
+export const postComment = (article_id, username, body) => {
   return fetch(
     `https://news-website-0p9e.onrender.com/api/articles/${article_id}/comments`,
     {
@@ -57,22 +58,20 @@ export const postComment  = (article_id, username, body) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ article_id,username, body}),
+      body: JSON.stringify({ article_id, username, body }),
     }
   ).then((response) => {
-   
+    return response.json();
   });
 };
 
-
 export const fetchUsers = () => {
-  return fetch(`https://news-website-0p9e.onrender.com/api/users`).then((response) => {
-    return response.json()
-  }).then((data) => data.user
-  )
-}
-
-
+  return fetch(`https://news-website-0p9e.onrender.com/api/users`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => data.user);
+};
 
 export const fetchDeleteComment = (comment_id) => {
   return fetch(
@@ -83,23 +82,17 @@ export const fetchDeleteComment = (comment_id) => {
         "Content-Type": "application/json",
       },
     }
-  )
-    .then((response) => {
-    
-    })
-    
+  ).then(() => {});
 };
 
-
-
 export const fetchTopics = (topic) => {
-  return fetch(`https://news-website-0p9e.onrender.com/api/articles?topic=${topic}`)
+  return fetch(
+    `https://news-website-0p9e.onrender.com/api/articles?topic=${topic}`
+  )
     .then((response) => {
       return response.json();
     })
-    .then((data) => data.article);
+    .then((response) => {
+      return response;
+    });
 };
-
-
-
-

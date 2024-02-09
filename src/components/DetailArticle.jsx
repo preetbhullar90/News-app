@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   fetchArticleById,
   fetchComments,
@@ -19,70 +19,70 @@ export const DetailArticle = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deletingComment, setDeletingComment] = useState(false);
-   const [reloadPage, setReloadPage] = useState(false);
+  const [reloadPage, setReloadPage] = useState(false);
   const { currentUser } = useContext(UserContext);
+  const [getError, setGetError] = useState("");
 
-  
   const { article_id } = useParams();
-  const navigate = useNavigate();
-
 
   const handleDeleteComment = (comment_id) => {
-  
     fetchDeleteComment(comment_id)
       .then(() => {
         setLoading(false);
-         setReloadPage(true); 
+        setReloadPage(true);
       })
       .catch((error) => {
-        setError(error.response.msg);
+        setError(error);
         setLoading(false);
       });
-  
-};
-
-
+  };
 
   const handleVote = (inc_votes) => {
     fetchVotesUpdate(inc_votes, article_id)
       .then((data) => {
         setVotes(data);
         setLoading(false);
-         setReloadPage(true); 
+        setReloadPage(true);
       })
       .catch((error) => {
-        setError(error.response.msg);
+        setError(error);
         setLoading(false);
       });
   };
 
   useEffect(() => {
     fetchComments(article_id)
-      .then((data) => {
-        setComments(data);
-        setLoading(false);
-       
+      .then((response) => {
+        if (response.status === 404 || response.status === 400) {
+          setGetError(response.msg + " " + response.status);
+          setLoading(false);
+        } else {
+          setComments(response.comment);
+          setLoading(false);
+        }
       })
       .catch((error) => {
-        setError(error.msg);
+        setError(error);
         setLoading(false);
       });
 
     fetchArticleById(article_id)
-      .then((data) => {
-        setArticle(data);
-        setLoading(false);
+      .then((response) => {
+        if (response.status === 404 || response.status === 400) {
+          setGetError(response.msg + " " + response.status);
+        } else {
+          setArticle(response.article);
+          setLoading(false);
+        }
       })
       .catch((error) => {
-        setError(error.msg);
+        setError(error);
         setLoading(false);
       });
-     if (reloadPage) {
-       setReloadPage(false);
-     }
-  }, [article_id,reloadPage]);
-
-  
+    if (reloadPage) {
+      setReloadPage(false);
+    }
+  }, [article_id, reloadPage]);
 
   return (
     <>
@@ -99,18 +99,18 @@ export const DetailArticle = () => {
         >
           Loading...
         </p>
-      ) : error ? (
+      ) : getError ? (
         <p
           style={{
             fontSize: "20px",
             color: "red",
-            position: "absolute",
-            top: "85%",
-            left: "55%",
-            transform: "translate(-50%,-50%)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: "5rem",
           }}
         >
-          {error}
+          {getError}
         </p>
       ) : (
         <div>
@@ -168,7 +168,10 @@ export const DetailArticle = () => {
                 </div>
               </div>
               <div>
-                <AddComment article_id={article.article_id} currentUser={currentUser.username} />
+                <AddComment
+                  article_id={article.article_id}
+                  currentUser={currentUser.username}
+                />
               </div>
             </>
           )}
