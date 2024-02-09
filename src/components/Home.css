@@ -11,7 +11,32 @@
     font-size: 20px;
     text-decoration: underline;
 }
+#SortBy,#Order{
+  
+    border-radius: 10px;
+    border: 0;
+    outline-style: none;
+    background-color: rgb(28, 27, 27);
+    color: #fff;
+    font-size: 17px;
+    margin-right: 20px;
+}
+.sort-by-subcontainer,.order-subcontainer{
+    background-color: rgb(28,27,27);
+    padding: 10px;
+    border-radius: 20px;
+}
+.sort-by-subcontainer{
+    margin-right: 5px;
+}
+.order-subcontainer{
+    margin-left: 5px;
+}
 
+#option{
+    color: #fff;
+    background-color: rgb(49, 48, 48);
+}
 
 
 @media screen and (max-width: 1024px) {

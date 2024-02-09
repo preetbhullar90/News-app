@@ -1,5 +1,9 @@
-export const fetchArticle = () => {
-  return fetch(`https://news-website-0p9e.onrender.com/api/articles/`)
+export const fetchArticle = (sortBy,order) => {
+  let url = `https://news-website-0p9e.onrender.com/api/articles`;
+  if (sortBy && order) {
+    url = `${url}?sort_by=${sortBy}&order=${order}`;
+  }
+  return fetch(url)
     .then((response) => {
       return response.json();
     })
@@ -95,3 +99,7 @@ export const fetchTopics = (topic) => {
     })
     .then((data) => data.article);
 };
+
+
+
+
