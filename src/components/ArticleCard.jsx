@@ -1,16 +1,13 @@
-import React from 'react';
-import './Article.css';
-
+import React from "react";
+import "./Article.css";
 
 export const ArticleCard = ({ article }) => {
-    
   return (
     <div className="article-container">
       <div className="article-subcontainer">
-        <div className='author-date'>
-
-        <p>{article.author}</p>
-        <p>{article.created_at.slice(0, 10)}</p>
+        <div className="author-date">
+          <p>{article.author}</p>
+          <p>{article.created_at.slice(0, 10)}</p>
         </div>
         <h2>{article.title}</h2>
 
@@ -26,4 +23,4 @@ export const ArticleCard = ({ article }) => {
       </div>
     </div>
   );
-}
+};

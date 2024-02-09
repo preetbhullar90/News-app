@@ -9,6 +9,7 @@ export const Home = () => {
   const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("desc");
   const [error, setError] = useState(null);
+  const [getError, setGetError] = useState("");
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
@@ -25,11 +26,18 @@ export const Home = () => {
     setLoading(true);
     fetchArticle(sortBy, order)
       .then((response) => {
-        setArticles(response);
-        setLoading(false);
+        if (response.status === 404 || response.status === 400) {
+          console.log(response.status);
+          setGetError(response.msg + " " + response.status);
+          setArticles(response.article);
+          setLoading(false);
+        } else {
+          setArticles(response.article);
+          setLoading(false);
+        }
       })
       .catch((error) => {
-        setError(error.msg);
+        setError(error.response);
         setLoading(false);
       });
   }, [sortBy, order]);
@@ -69,7 +77,7 @@ export const Home = () => {
         >
           Loading...
         </p>
-      ) : error ? (
+      ) : getError ? (
         <p
           style={{
             fontSize: "20px",
@@ -80,7 +88,7 @@ export const Home = () => {
             transform: "translate(-50%,-50%)",
           }}
         >
-          {error}
+          {getError}
         </p>
       ) : (
         <div

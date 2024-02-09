@@ -1,54 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import './AddComment.css';
-import { postComment } from '../Utils/api';
+import React, { useEffect, useState } from "react";
+import "./AddComment.css";
+import { postComment } from "../Utils/api";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaMinusCircle } from "react-icons/fa";
 
+export const AddComment = ({ article_id, currentUser }) => {
+  const [username, setAuthor] = useState("");
+  const [body, setCommentText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [rightUser, setRightUser] = useState(false);
+  const [getError, setGetError] = useState("");
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
 
+    postComment(article_id, username, body)
+      .then((response) => {
+        if (username !== currentUser) {
+          setGetError(response.msg + " " + response.status);
+          setRightUser(true);
+          setSuccess(false);
+        } else {
+          setCommentText("");
+          setAuthor("");
+          setSuccess(true);
+          setRightUser(false);
+          setGetError("");
+        }
+      })
+      .catch((error) => {
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-export const AddComment = ({article_id,currentUser}) => {
-    
-const [username, setAuthor] = useState("");
-const [body, setCommentText] = useState("");
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(null);
-const [success, setSuccess] = useState(false);
-const [expanded, setExpanded] = useState(false);
-const [rightUser,setRightUser]=useState(false)
- 
-  
-const handleSubmit = (event) => {
-  event.preventDefault();
-  setLoading(true);
-  setError(null);
-
-  postComment(article_id,username, body)
-    .then(() => {
-      if (username !== currentUser) {
-        setRightUser(true)
-      } else {
-        setCommentText("");
-        setAuthor('')
-        setSuccess(true);
-        setRightUser(false)
-      }
-    })
-    .catch((error) => {
-      setError("Failed to post comment. Please try again.");
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-};
-  
- 
-
-
-    
   return (
     <div>
       <div className="comment-expend">
+        {getError && (
+          <p
+            style={{
+              fontSize: "20px",
+              color: "red",
+            }}
+          >
+            {getError}
+          </p>
+        )}
+
+        {success && (
+          <h2
+            style={{
+              fontSize: "17px",
+              color: "green",
+            }}
+          >
+            Comment posted successfully!
+          </h2>
+        )}
+
         <div className="comment-expend" onClick={() => setExpanded(!expanded)}>
           <h2>Post a Comment</h2>
 
@@ -72,6 +89,7 @@ const handleSubmit = (event) => {
             />
           )}
         </div>
+
         {currentUser ? (
           <>
             {expanded && (
@@ -114,38 +132,6 @@ const handleSubmit = (event) => {
                       {error}
                     </p>
                   )}
-
-                  {rightUser ? (
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        color: "red",
-                        position: "absolute",
-                        top: "88%",
-                        left: "55%",
-                        transform: "translate(-50%,-50%)",
-                      }}
-                    >
-                      Username is not correct or Login
-                    </p>
-                  ) :
-                    <>
-                  {success && (
-                    <p
-                      style={{
-                        fontSize: "20px",
-                        color: "green",
-                        position: "absolute",
-                        top: "88%",
-                        left: "55%",
-                        transform: "translate(-50%,-50%)",
-                      }}
-                    >
-                      Comment posted successfully!
-                    </p>
-                  )}
-                    </>
-                  }
                 </div>
               </div>
             )}
@@ -156,4 +142,4 @@ const handleSubmit = (event) => {
       </div>
     </div>
   );
-}
+};

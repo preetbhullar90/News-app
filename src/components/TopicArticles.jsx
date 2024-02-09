@@ -6,7 +6,8 @@ import { ArticleCard } from './ArticleCard';
 export const TopicArticles = () => {
     const [articles, setArticles] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [getError, setGetError] = useState("");
     const { topic } = useParams()
   
 
@@ -14,9 +15,15 @@ export const TopicArticles = () => {
     useEffect(() => {
         setLoading(true)
         fetchTopics(topic)
-            .then((response) => {
-            setArticles(response);
-            setLoading(false);
+          .then((response) => {
+            if (response.status === 404 || response.status === 400) {
+              setGetError(response.msg + " " + response.status);
+              setLoading(false);
+            } else { 
+
+              setArticles(response.article);
+              setLoading(false);
+            }
           })
           .catch((error) => {
             setError(error.msg);
@@ -42,30 +49,30 @@ export const TopicArticles = () => {
         >
           Loading...
         </p>
-      ) : error ? (
+      ) : getError ? (
         <p
           style={{
             fontSize: "20px",
             color: "red",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
+            display: "flex",
+            justifyContent: "center",
+              alignItems: "center",
+            paddingTop:'5rem'
           }}
         >
-          {error}
+            {getError}
+            {console.log(getError)}
         </p>
       ) : (
-                      <div className="home-container">
-                          <h1 className='topic'>Topic { topic}</h1>
+        <div className="home-container">
+          <h1 className="topic">Topic {topic}</h1>
           {articles.map((article) => (
             <ul key={article.article_id}>
               <Link
                 to={`/articles/${article.article_id}/comments`}
                 className="comment"
               >
-                <ArticleCard
-                 key={article.article_id} article={article} />
+                <ArticleCard key={article.article_id} article={article} />
               </Link>
             </ul>
           ))}

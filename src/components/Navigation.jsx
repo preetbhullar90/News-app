@@ -4,25 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import "bulma/css/bulma.min.css";
 import { Header } from "./Header";
 import { useContext } from "react";
-import  UserContext  from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 export const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
 
-  const { currentUser } = useContext(UserContext)
-  const auth = localStorage.getItem('currentUser')
-  const navigate = useNavigate()
- 
+  const auth = localStorage.getItem("currentUser");
+  const navigate = useNavigate();
 
   function logout() {
     if (auth) {
-      localStorage.clear()
-      navigate('/users')
+      localStorage.clear();
+      navigate("/users");
+    }
   }
-  
-}
-
-
-
 
   const handleToggle = (event) => {
     event.preventDefault();
@@ -70,7 +65,6 @@ export const Navigation = () => {
           }}
         >
           <div className="navbar-start">
-            
             <Link className="navbar-item" to="/">
               Articles
             </Link>
@@ -99,7 +93,6 @@ export const Navigation = () => {
                   Cooking
                 </Link>
                 <hr className="navbar-divider" />
-               
               </div>
             </div>
           </div>
@@ -136,9 +129,6 @@ export const Navigation = () => {
                     Login
                   </Link>
                 )}
-                {/* <a className="button is-primary">
-                  <strong>Sign up</strong>
-                </a> */}
               </div>
             </div>
           </div>
