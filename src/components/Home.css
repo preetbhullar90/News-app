@@ -37,7 +37,12 @@
     color: #fff;
     background-color: rgb(49, 48, 48);
 }
-
+.dropdown-menus{
+    position: fixed;
+    display: flex;
+justify-content: center;
+            width: 100%;
+}
 
 @media screen and (max-width: 1024px) {
     .home-container {
@@ -46,6 +51,7 @@
         height: auto;
 
     }
+       
 
 
 }
@@ -55,6 +61,14 @@
         width: 100%;
         margin-left: 0;
 
+    }
+    .sort-by-subcontainer,.order-subcontainer{
+     margin: 2px;
+     padding: 6px;
+    
+    }
+    #SortBy,#Order{
+        margin-right: 0;
     }
 
 }
